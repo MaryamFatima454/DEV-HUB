@@ -4,8 +4,200 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DevHub - Developer Projects & Blogs</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: #0f172a;
+      color: #f1f5f9;
+      line-height: 1.6;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 3rem;
+      background: rgba(15, 23, 42, 0.9);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+
+    .navbar .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .navbar nav a {
+      margin-left: 1.5rem;
+      text-decoration: none;
+      color: #e2e8f0;
+      transition: color 0.3s;
+    }
+
+    .navbar nav a:hover {
+      color: #38bdf8;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-video {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.55);
+      z-index: -1;
+    }
+
+    .hero-content h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-content .highlight {
+      color: #38bdf8;
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-buttons a {
+      display: inline-block;
+      margin: 0 0.5rem;
+      padding: 0.8rem 1.6rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .btn-primary {
+      background: #38bdf8;
+      color: #0f172a;
+    }
+
+    .btn-primary:hover {
+      background: #0ea5e9;
+    }
+
+    .btn-secondary {
+      border: 2px solid #38bdf8;
+      color: #38bdf8;
+    }
+
+    .btn-secondary:hover {
+      background: #38bdf8;
+      color: #0f172a;
+    }
+
+    /* Section Common */
+    section {
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    section h2 {
+      font-size: 2.2rem;
+      margin-bottom: 2.5rem;
+      background: linear-gradient(to right, #38bdf8, #3b82f6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .grid {
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    /* Cards */
+    .card {
+      background: #1e293b;
+      border-radius: 15px;
+      padding: 1.5rem;
+      text-align: left;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.45);
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+    }
+
+    .card h3 {
+      margin-bottom: 0.5rem;
+      color: #38bdf8;
+    }
+
+    .card p {
+      margin-bottom: 1rem;
+      color: #cbd5e1;
+    }
+
+    .card a {
+      text-decoration: none;
+      color: #38bdf8;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .card a:hover {
+      color: #0ea5e9;
+    }
+
+    /* Footer */
+    footer {
+      background: #0f172a;
+      padding: 1.5rem;
+      text-align: center;
+      border-top: 1px solid #1e293b;
+    }
+
+    footer a {
+      margin-left: 1rem;
+      color: #38bdf8;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: #0ea5e9;
+    }
+  </style>
 </head>
 <body>
   <!-- Navbar -->
@@ -38,36 +230,36 @@
 
   <!-- Featured Projects -->
   <section class="projects-preview">
-    <h2>Featured Projects</h2>
+    <h2>🚀 Featured Projects</h2>
     <div class="grid">
       <div class="card">
         <img src="images/project1.jpg" alt="Project 1">
         <h3>Weather App</h3>
         <p>A simple JavaScript weather app with API integration.</p>
-        <a href="projects.html">View More</a>
+        <a href="projects.html">View More →</a>
       </div>
       <div class="card">
         <img src="images/project2.jpg" alt="Project 2">
         <h3>Portfolio Website</h3>
         <p>Responsive portfolio built using HTML, CSS & JS.</p>
-        <a href="projects.html">View More</a>
+        <a href="projects.html">View More →</a>
       </div>
     </div>
   </section>
 
   <!-- Blog Preview -->
   <section class="blog-preview">
-    <h2>Latest Blogs</h2>
+    <h2>📝 Latest Blogs</h2>
     <div class="grid">
       <div class="card">
         <h3>Getting Started with Python</h3>
         <p>Learn Python basics with this step-by-step guide.</p>
-        <a href="blog.html">Read More</a>
+        <a href="blog.html">Read More →</a>
       </div>
       <div class="card">
         <h3>Fixing Common npm Errors</h3>
         <p>Quick fixes for the most common npm issues developers face.</p>
-        <a href="blog.html">Read More</a>
+        <a href="blog.html">Read More →</a>
       </div>
     </div>
   </section>
