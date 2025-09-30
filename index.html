@@ -75,18 +75,45 @@
       z-index: -1;
     }
 
+    /* Animated Heading */
     .hero-content h1 {
       font-size: 3rem;
       margin-bottom: 1rem;
+      color: #38bdf8;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 3px solid #38bdf8;
+      width: 0;
+      animation: typing 3s steps(20, end) forwards, blink 0.7s step-end infinite;
     }
 
-    .hero-content .highlight {
-      color: #38bdf8;
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent }
     }
 
     .hero-content p {
       font-size: 1.2rem;
-      margin-bottom: 1.5rem;
+      margin-top: 1rem;
+      opacity: 0;
+      animation: fadeIn 2s ease-in forwards;
+      animation-delay: 3s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .cta-buttons {
+      margin-top: 1.5rem;
+      opacity: 0;
+      animation: fadeIn 2s ease-in forwards;
+      animation-delay: 4s;
     }
 
     .cta-buttons a {
@@ -219,7 +246,7 @@
     </video>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <h1>Build. Learn. <span class="highlight">Innovate.</span></h1>
+      <h1>Welcome to DEVHUB</h1>
       <p>Explore coding projects, tutorials, and resources for developers & students.</p>
       <div class="cta-buttons">
         <a href="projects.html" class="btn btn-primary">Explore Projects</a>
