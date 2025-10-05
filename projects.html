@@ -4,11 +4,443 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Projects - DevHub</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0a192f 0%, #172a45 100%);
+      color: #e6f1ff;
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Navbar */
+    .navbar {
+      background: rgba(10, 25, 47, 0.95);
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 5%;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      animation: slideDown 0.8s ease;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .navbar .logo {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: #64ffda;
+      animation: fadeIn 1.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .navbar nav a {
+      color: #ccd6f6;
+      text-decoration: none;
+      margin: 0 15px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      position: relative;
+      padding: 5px 0;
+    }
+
+    .navbar nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #64ffda;
+      transition: width 0.3s ease;
+    }
+
+    .navbar nav a:hover,
+    .navbar nav a.active {
+      color: #64ffda;
+    }
+
+    .navbar nav a:hover::after,
+    .navbar nav a.active::after {
+      width: 100%;
+    }
+
+    /* Page Header */
+    .page-header {
+      text-align: center;
+      padding: 80px 20px 60px;
+      background: linear-gradient(135deg, #0a192f 0%, #112240 100%);
+      color: #e6f1ff;
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp 1s ease;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(100, 255, 218, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(77, 163, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(100, 255, 218, 0.05) 0%, transparent 50%);
+      z-index: 0;
+    }
+
+    @keyframes fadeUp {
+      from { transform: translateY(40px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .page-header h1 {
+      font-size: 3.2rem;
+      margin-bottom: 15px;
+      animation: fadeIn 1.2s ease;
+      position: relative;
+      z-index: 1;
+      background: linear-gradient(135deg, #64ffda 0%, #4da3ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .page-header p {
+      font-size: 1.3rem;
+      opacity: 0.9;
+      animation: fadeIn 1.6s ease;
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+      margin: 0 auto;
+      color: #a8b2d1;
+    }
+
+    /* Projects Grid - New Design */
+    .projects-container {
+      max-width: 1300px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 35px;
+    }
+
+    .project-card {
+      background: rgba(23, 42, 69, 0.7);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(2, 12, 27, 0.7);
+      transition: all 0.4s ease;
+      position: relative;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(100, 255, 218, 0.1);
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(100, 255, 218, 0.1) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: 0;
+    }
+
+    .project-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 20px 40px rgba(2, 12, 27, 0.9);
+      border-color: rgba(100, 255, 218, 0.3);
+    }
+
+    .project-card:hover::before {
+      opacity: 1;
+    }
+
+    .card-header {
+      height: 200px;
+      background: linear-gradient(135deg, #0a192f 0%, #112240 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+    }
+
+    .card-header i {
+      font-size: 5rem;
+      color: rgba(100, 255, 218, 0.8);
+      z-index: 2;
+      transition: all 0.4s ease;
+    }
+
+    .project-card:hover .card-header i {
+      transform: scale(1.1);
+      color: #64ffda;
+    }
+
+    .card-header::before {
+      content: "";
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: 
+        radial-gradient(circle, rgba(100, 255, 218, 0.1) 0%, transparent 70%),
+        radial-gradient(circle, rgba(77, 163, 255, 0.1) 0%, transparent 70%);
+      transform: rotate(25deg);
+      top: -50%;
+      left: -50%;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .project-card:hover .card-header::before {
+      opacity: 1;
+    }
+
+    .card-content {
+      padding: 30px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-content h3 {
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+      color: #e6f1ff;
+      position: relative;
+      display: inline-block;
+    }
+
+    .card-content h3::after {
+      content: "";
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: #64ffda;
+      transition: width 0.3s ease;
+    }
+
+    .project-card:hover .card-content h3::after {
+      width: 100%;
+    }
+
+    .card-content p {
+      margin-bottom: 25px;
+      color: #a8b2d1;
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+
+    .tech-tag {
+      background: rgba(100, 255, 218, 0.1);
+      color: #64ffda;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      border: 1px solid rgba(100, 255, 218, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .project-card:hover .tech-tag {
+      background: rgba(100, 255, 218, 0.15);
+      border-color: rgba(100, 255, 218, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .card-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    .btn-primary {
+      background: rgba(100, 255, 218, 0.1);
+      color: #64ffda;
+      border: 1px solid rgba(100, 255, 218, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: rgba(100, 255, 218, 0.2);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(100, 255, 218, 0.2);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #4da3ff;
+      border: 1px solid rgba(77, 163, 255, 0.3);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(77, 163, 255, 0.1);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(77, 163, 255, 0.2);
+    }
+
+    /* Footer */
+    footer {
+      background: rgba(10, 25, 47, 0.9);
+      color: #a8b2d1;
+      text-align: center;
+      padding: 30px 20px;
+      margin-top: 80px;
+      font-size: 1rem;
+      animation: fadeIn 2s ease;
+      border-top: 1px solid rgba(100, 255, 218, 0.1);
+      position: relative;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 30% 100%, rgba(100, 255, 218, 0.05) 0%, transparent 50%);
+      z-index: 0;
+    }
+
+    footer p {
+      margin: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Keyframes for fadeIn */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Floating animation */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .floating {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .navbar {
+        flex-direction: column;
+        padding: 15px;
+      }
+      
+      .navbar nav {
+        margin-top: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .navbar nav a {
+        margin: 5px 10px;
+      }
+      
+      .page-header h1 {
+        font-size: 2.5rem;
+      }
+      
+      .page-header p {
+        font-size: 1.1rem;
+      }
+      
+      .card-actions {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+      }
+      
+      .btn {
+        justify-content: center;
+      }
+    }
+
+    /* Scrollbar Styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #0a192f;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #64ffda;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #4da3ff;
+    }
+  </style>
 </head>
 <body>
   <header class="navbar">
-    <div class="logo">💻 DevHub</div>
+    <div class="logo">
+      <i class="fas fa-code"></i> DevHub
+    </div>
     <nav>
       <a href="index.html">Home</a>
       <a href="projects.html" class="active">Projects</a>
@@ -19,25 +451,184 @@
   </header>
 
   <section class="page-header">
-    <h1>My Projects</h1>
-    <p>Open-source projects with installation guides & GitHub links</p>
+    <h1 class="floating">My Projects</h1>
+    <p>Explore my collection of open-source projects with detailed guides and resources</p>
   </section>
 
-  <section class="grid">
-    <div class="card">
-      <h3>Weather App</h3>
-      <p>Installation: <br>1. Clone repo<br>2. Run index.html<br>3. Add API key.</p>
-      <a href="https://github.com/username/weather-app" target="_blank">GitHub</a>
-    </div>
-    <div class="card">
-      <h3>Django Blog</h3>
-      <p>Installation: <br>1. pip install -r requirements.txt<br>2. python manage.py runserver</p>
-      <a href="https://github.com/username/django-blog" target="_blank">GitHub</a>
+  <section class="projects-container">
+    <div class="projects-grid">
+      <!-- Project 1 -->
+      <div class="project-card">
+        <div class="card-header">
+          <i class="fas fa-cloud-sun-rain floating"></i>
+        </div>
+        <div class="card-content">
+          <h3>Weather App</h3>
+          <p>A responsive weather application that provides real-time weather data and forecasts for any location worldwide with beautiful visualizations.</p>
+          
+          <div class="tech-stack">
+            <span class="tech-tag">HTML5</span>
+            <span class="tech-tag">CSS3</span>
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">API Integration</span>
+            <span class="tech-tag">Chart.js</span>
+          </div>
+          
+          <div class="card-actions">
+            <a href="https://github.com/username/weather-app" target="_blank" class="btn btn-primary">
+              <i class="fab fa-github"></i> View Code
+            </a>
+            <a href="#" class="btn btn-secondary">
+              <i class="fas fa-external-link-alt"></i> Live Demo
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="project-card">
+        <div class="card-header">
+          <i class="fas fa-blog floating"></i>
+        </div>
+        <div class="card-content">
+          <h3>Django Blog</h3>
+          <p>A full-featured blog platform with user authentication, post management, comments, admin panel, and rich text editing capabilities.</p>
+          
+          <div class="tech-stack">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Django</span>
+            <span class="tech-tag">PostgreSQL</span>
+            <span class="tech-tag">Bootstrap</span>
+            <span class="tech-tag">REST API</span>
+          </div>
+          
+          <div class="card-actions">
+            <a href="https://github.com/username/django-blog" target="_blank" class="btn btn-primary">
+              <i class="fab fa-github"></i> View Code
+            </a>
+            <a href="#" class="btn btn-secondary">
+              <i class="fas fa-external-link-alt"></i> Live Demo
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="project-card">
+        <div class="card-header">
+          <i class="fas fa-shopping-cart floating"></i>
+        </div>
+        <div class="card-content">
+          <h3>E-commerce Platform</h3>
+          <p>A complete online shopping solution with product catalog, shopping cart, payment integration, order management, and admin dashboard.</p>
+          
+          <div class="tech-stack">
+            <span class="tech-tag">React</span>
+            <span class="tech-tag">Node.js</span>
+            <span class="tech-tag">MongoDB</span>
+            <span class="tech-tag">Stripe API</span>
+            <span class="tech-tag">Redux</span>
+          </div>
+          
+          <div class="card-actions">
+            <a href="https://github.com/username/ecommerce" target="_blank" class="btn btn-primary">
+              <i class="fab fa-github"></i> View Code
+            </a>
+            <a href="#" class="btn btn-secondary">
+              <i class="fas fa-external-link-alt"></i> Live Demo
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 4 -->
+      <div class="project-card">
+        <div class="card-header">
+          <i class="fas fa-tasks floating"></i>
+        </div>
+        <div class="card-content">
+          <h3>Task Manager</h3>
+          <p>A productivity application for managing daily tasks with features like reminders, categories, progress tracking, and team collaboration.</p>
+          
+          <div class="tech-stack">
+            <span class="tech-tag">Vue.js</span>
+            <span class="tech-tag">Firebase</span>
+            <span class="tech-tag">PWA</span>
+            <span class="tech-tag">Material UI</span>
+            <span class="tech-tag">IndexedDB</span>
+          </div>
+          
+          <div class="card-actions">
+            <a href="https://github.com/username/task-manager" target="_blank" class="btn btn-primary">
+              <i class="fab fa-github"></i> View Code
+            </a>
+            <a href="#" class="btn btn-secondary">
+              <i class="fas fa-external-link-alt"></i> Live Demo
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 5 -->
+      <div class="project-card">
+        <div class="card-header">
+          <i class="fas fa-chart-line floating"></i>
+        </div>
+        <div class="card-content">
+          <h3>Finance Tracker</h3>
+          <p>An application to track expenses, income, and investments with visual analytics, budgeting tools, and financial insights.</p>
+          
+          <div class="tech-stack">
+            <span class="tech-tag">React Native</span>
+            <span class="tech-tag">GraphQL</span>
+            <span class="tech-tag">Chart.js</span>
+            <span class="tech-tag">SQLite</span>
+            <span class="tech-tag">TypeScript</span>
+          </div>
+          
+          <div class="card-actions">
+            <a href="https://github.com/username/finance-tracker" target="_blank" class="btn btn-primary">
+              <i class="fab fa-github"></i> View Code
+            </a>
+            <a href="#" class="btn btn-secondary">
+              <i class="fas fa-external-link-alt"></i> Live Demo
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 6 -->
+      <div class="project-card">
+        <div class="card-header">
+          <i class="fas fa-gamepad floating"></i>
+        </div>
+        <div class="card-content">
+          <h3>JavaScript Game</h3>
+          <p>A browser-based game built with vanilla JavaScript featuring multiple levels, scoring system, responsive controls, and immersive gameplay.</p>
+          
+          <div class="tech-stack">
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">HTML5 Canvas</span>
+            <span class="tech-tag">CSS Animations</span>
+            <span class="tech-tag">Web Audio API</span>
+            <span class="tech-tag">Game Physics</span>
+          </div>
+          
+          <div class="card-actions">
+            <a href="https://github.com/username/js-game" target="_blank" class="btn btn-primary">
+              <i class="fab fa-github"></i> View Code
+            </a>
+            <a href="#" class="btn btn-secondary">
+              <i class="fas fa-external-link-alt"></i> Live Demo
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <footer>
-    <p>© 2025 DevHub</p>
+    <p>© 2025 DevHub | Crafted with <i class="fas fa-heart" style="color: #64ffda;"></i> for the developer community</p>
   </footer>
 </body>
 </html>
